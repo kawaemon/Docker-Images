@@ -1,0 +1,15 @@
+version: '3'
+services:
+  jupyterlab:
+    build: .
+    user: root
+    container_name: jupyter-lab
+    privileged: true
+    ports:
+      - "8888:8888"
+    environment: 
+      GRANT_SUDO: "yes"
+    volumes:
+      - "./code:/code"
+      - "$HOME:/host"
+
