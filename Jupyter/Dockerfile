@@ -1,6 +1,7 @@
 FROM jupyter/base-notebook
 USER root
 
+
 # envs
 ENV TZ=Asia/Tokyo \
     LC_CTYPE=C.UTF-8
@@ -8,7 +9,7 @@ ENV TZ=Asia/Tokyo \
 # Install Golang and Gophernotes
 ENV GOPATH=/go
 ENV PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
-RUN set -eux; \ 
+RUN set -exu; \ 
     \
     apt-get update -y; \
     apt-get install -y --no-install-recommends wget git build-essential cmake curl; \
@@ -34,7 +35,7 @@ ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH
 
-RUN set -eux; \
+RUN set -exu; \
     \
     curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y --no-modify-path; \
     \
@@ -50,24 +51,35 @@ RUN set -eux; \
 ENV N_PREFIX=$HOME/.n 
 ENV PATH=$N_PREFIX/bin:$PATH
 
-RUN set -ex; \
-    apt-get update -y; \
-    apt-get install -y --no-install-recommends sudo; \
-    apt-get clean -y; \
-    rm -rf /var/lib/apt/lists/*; \
-    \
+RUN set -exu; \
     curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n; \
     bash ./n 12.18.1; \
-    rm ./n;
-
-RUN set -exu; \ 
-    chmod -R a+rwx ./.n/; \
+    rm ./n; \
+    \
     npm config set unsafe-perm true; \
     npm install -g ijavascript itypescript; \
+    \
     ijsinstall --install=global; \
     its --install=global; 
 
 
+# Install Ruby and IRuby
+RUN set -exu; \
+    curl -sSL https://get.rvm.io | bash -s stable --ruby; \
+    \
+    apt-get update -y; \
+    apt-get install -y --no-install-recommends libzmq3-dev libczmq-dev; \
+    apt-get clean -y; \
+    rm -rf /var/lib/apt/lists/*; \
+    \
+    /bin/bash -l -c ". /etc/profile.d/rvm.sh"; \
+    /bin/bash -l -c "gem install ffi-rzmq"; \
+    /bin/bash -l -c "gem install iruby --pre"; \
+    /bin/bash -l -c "iruby register --force";
+
+
 EXPOSE 8888
-CMD ["bash", "-c", "chmod a+rw /code && start.sh jupyter lab /code "]
+ENTRYPOINT ["/bin/bash", "-l", "-c"]
+
+CMD ["chmod a+rw /code && start.sh jupyter lab /code"]
 
