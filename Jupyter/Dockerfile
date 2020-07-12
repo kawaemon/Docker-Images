@@ -77,6 +77,9 @@ RUN set -exu; \
     /bin/bash -l -c "gem install iruby --pre"; \
     /bin/bash -l -c "iruby register --force";
 
+# Install Python lib
+RUN set -exu; \
+    pip3 install numpy matplotlib;
 
 EXPOSE 8888
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
