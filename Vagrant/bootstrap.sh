@@ -5,7 +5,7 @@ set -eu
 echo "Server = https://mirrors.cat.net/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
 pacman -Syyu --noconfirm --needed \
     base base-devel wget git zsh gnupg \
-    pbzip2 pigz tmux htop go 
+    pbzip2 pigz tmux htop go
 
 
 # patch makepkg.conf for faster `makepkg`

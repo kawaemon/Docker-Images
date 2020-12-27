@@ -4,6 +4,10 @@ set -eu
 cd $HOME
 
 
+# copy zshrc
+cp /vagrant/zshrc /home/vagrant/.zshrc
+
+
 # install node version manager
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | zsh
 source ~/.zshrc
@@ -60,7 +64,7 @@ rm -rf yay
 
 
 # install AUR package
-yay -S --noconfirm lazygit neovim-git
+yay -S --noconfirm lazygit neovim-git ngrok
 
 
 # install rustup + rust stable & nightly
@@ -73,6 +77,6 @@ rustup install nightly
 
 
 # install cargo packages
-cargo install cargo-edit cargo-asm starship 
+cargo install cargo-{asm,edit,watch} starship
 echo 'eval "$(starship init zsh)"' >> ~/.zshrc
 

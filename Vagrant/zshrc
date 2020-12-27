@@ -1,0 +1,30 @@
+alias ls=exa
+alias cat=bat
+
+alias sl=ls
+alias v=nvim
+
+# Vim key bindings
+# from: https://github.com/shun-shobon/dotfiles/blob/master/.config/zsh/rc/keybind.zsh
+bindkey -d
+bindkey -v
+
+KEYTIMEOUT=1
+
+bindkey -M viins '^?' backward-delete-char
+bindkey -M viins '^H' backward-delete-char
+
+function zle-keymap-select() {
+    case ${KEYMAP} in
+        vicmd)
+            print -n '\033[2 q'
+            ;;
+        viins|main)
+            print -n '\033[6 q'
+            ;;
+    esac
+    zle reset-prompt
+    zle -R
+}
+
+zle -N zle-keymap-select
