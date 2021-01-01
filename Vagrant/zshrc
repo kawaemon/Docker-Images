@@ -4,6 +4,13 @@ alias cat=bat
 alias sl=ls
 alias v=nvim
 
+alias cz="nvm exec default cz"
+
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1
+
+eval $(thefuck --alias)
+
 # Vim key bindings
 # from: https://github.com/shun-shobon/dotfiles/blob/master/.config/zsh/rc/keybind.zsh
 bindkey -d
@@ -27,4 +34,14 @@ function zle-keymap-select() {
     zle -R
 }
 
+function zle-line-init() {
+    zle-keymap-select
+}
+
+function zle-line-finish() {
+    print -n '\033[6 q'
+}
+
+zle -N zle-line-init
+zle -N zle-line-finish
 zle -N zle-keymap-select

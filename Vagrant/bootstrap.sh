@@ -2,15 +2,20 @@
 
 set -eu
 
+# patch config
+cd /etc
+    patch < /vagrant/makepkg.conf.patch
+cd ..
+
+
 echo "Server = https://mirrors.cat.net/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
 pacman -Syyu --noconfirm --needed \
     base base-devel wget git zsh gnupg \
-    pbzip2 pigz tmux htop go
+    pbzip2 pigz tmux htop thefuck exa bat \
+    docker lld clang go stack
 
 
-# patch makepkg.conf for faster `makepkg`
-cd /etc
-patch < /vagrant/makepkg.conf.patch
+systemctl enable docker
 
 
 # gen locale for english and japanese UTF-8
@@ -20,6 +25,10 @@ locale-gen
 
 # change default shell to zsh
 chsh -s $(which zsh) vagrant
+
+
+# let join user to docker group
+usermod -aG docker vagrant
 
 
 # run usermode bootstrap script
