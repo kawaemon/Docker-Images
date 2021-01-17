@@ -1,10 +1,17 @@
 #!/bin/zsh
-set -eu 
+
+### Configurations ###
+SCCACHE_MONGODB_URL="mongodb://192.168.0.35"
+XSERVER_IP="192.168.0.32"
+
+set -eu
 cd /home/vagrant
 
 
 # copy zshrc
 cp /vagrant/zshrc /home/vagrant/.zshrc
+
+echo "export DISPLAY=\"${XSERVER_IP}:0.0\"" >> ~/.zshrc
 
 
 # Setup GPG key
@@ -28,6 +35,7 @@ cd dev
             ./symlink.sh
         set -eu
 cd ../../
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 
 # install yay
@@ -64,7 +72,15 @@ source $HOME/.cargo/env
 
 rustup install nightly
 
-cargo install cargo-{asm,edit,expand,watch} starship
+cargo install --git https://github.com/kawaemon/sccache.git --branch mongodb-support --bin sccache --features all
+
+echo "export SCCACHE_MONGODB=\"${SCCACHE_MONGODB_URL}\"
+export RUSTC_WRAPPER=\"sccache\"" >> ~/.zshrc
+
+export SCCACHE_MONGODB=${SCCACHE_MONGODB_URL}
+export RUSTC_WRAPPER="sccache"
+
+cargo install cargo-{asm,edit,expand,outdated,watch} starship git-delta
 echo 'eval "$(starship init zsh)"' >> ~/.zshrc
 
 
