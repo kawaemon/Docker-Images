@@ -8,6 +8,9 @@ alias cz="nvm exec default cz"
 
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
+export EDITOR="nvim"
+export VISUAL="nvim"
+export PAGER="less"
 
 eval $(thefuck --alias)
 
