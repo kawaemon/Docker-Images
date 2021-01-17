@@ -11,7 +11,8 @@ cd /home/vagrant
 # copy zshrc
 cp /vagrant/zshrc /home/vagrant/.zshrc
 
-echo "export DISPLAY=\"${XSERVER_IP}:0.0\"" >> ~/.zshrc
+echo "export DISPLAY=\"${XSERVER_IP}:0.0\"
+export LIBGL_ALWAYS_INDIRECT=1" >> ~/.zshrc
 
 
 # Setup GPG key
