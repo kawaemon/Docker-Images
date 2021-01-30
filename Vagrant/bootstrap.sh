@@ -16,7 +16,7 @@ echo 'Server = https://mirrors.cat.net/archlinux/$repo/os/$arch' > /etc/pacman.d
 pacman -Syyu --noconfirm --needed \
     base base-devel wget git zsh gnupg \
     pbzip2 pigz tmux htop thefuck exa bat \
-    docker{,-compose} lld clang go stack
+    docker{,-compose} ncdu lld clang go stack
 
 systemctl enable docker
 

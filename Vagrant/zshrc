@@ -10,7 +10,7 @@ export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 export EDITOR="nvim"
 export VISUAL="nvim"
-export PAGER="less"
+export MANPAGER='nvim +Man!'
 
 eval $(thefuck --alias)
 
