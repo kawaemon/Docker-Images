@@ -2,6 +2,9 @@
 
 set -eu
 
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
+chattr +i /etc/resolv.conf
+
 # set timezone
 ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
