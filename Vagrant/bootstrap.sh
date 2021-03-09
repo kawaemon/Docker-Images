@@ -18,8 +18,8 @@ cd ..
 echo 'Server = https://mirrors.cat.net/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
 pacman -Syyu --noconfirm --needed \
     base base-devel wget git zsh gnupg \
-    pbzip2 pigz tmux htop thefuck exa bat \
-    docker{,-compose} ncdu lld clang go stack
+    pbzip2 pigz tmux htop thefuck exa bat ripgrep \
+    docker{,-compose} ncdu lld clang go stack pyenv jdk-openjdk
 
 systemctl enable docker
 

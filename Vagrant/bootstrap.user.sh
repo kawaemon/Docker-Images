@@ -60,7 +60,20 @@ source ~/.zshrc
 nvm install node
 npm i -g yarn pnpm
 pnpm i -g commitizen create-{react,next}-app
-cat /vagrant/nvm-shell-hook.stub.zshrc >> ~/.zshrc
+
+
+# setup go
+echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.zshrc
+go get golang.org/x/tools/cmd/goimports
+
+
+# setup python
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc
+echo "export PIPENV_VENV_IN_PROJECT=true" >> ~/.zshrc
+eval $(pyenv init -)
+pyenv install 3.9.1
+pyenv global 3.9.1
+pip3 install pipenv
 
 
 # setup Rust
@@ -99,4 +112,3 @@ cd haskell-language-server
 cd ../
 rm -rf haskell-language-server
 echo 'export PATH="$PATH:/home/vagrant/.local/bin/"' >> ~/.zshrc
-
