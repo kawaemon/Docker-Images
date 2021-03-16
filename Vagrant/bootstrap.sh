@@ -37,5 +37,9 @@ chsh -s $(which zsh) vagrant
 usermod -aG docker vagrant
 
 
+cp /vagrant/goland.sh /usr/local/bin/goland
+chmod +x /usr/local/bin/goland
+
+
 # run usermode bootstrap script
 su vagrant -c "zsh /vagrant/bootstrap.user.sh"
