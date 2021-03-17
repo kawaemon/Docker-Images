@@ -2,6 +2,8 @@
 # vi: set ft=ruby :
 require "etc"
 
+vm_name = "arch"
+
 Vagrant.configure("2") do |config|
   config.vm.box = "generic/arch"
 
@@ -11,15 +13,19 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "bootstrap.sh"
 
   config.vm.provider "virtualbox" do |virtualbox|
+    virtualbox.name = vm_name
     virtualbox.memory = "4096"
     virtualbox.cpus = Etc.nprocessors
     virtualbox.customize ["modifyvm", :id, "--ioapic", "on"]
   end
 
   config.vm.provider "hyperv" do |hyperv|
+    hyperv.vmname = vm_name
     hyperv.memory = 4096
     hyperv.maxmemory = 16384
     hyperv.cpus = Etc.nprocessors
+    hyperv.enable_virtualization_extensions = true
+
     config.vm.provision "shell", path: "bootstrap.hyperv.sh"
   end
 end
