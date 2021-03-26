@@ -64,13 +64,13 @@ pnpm i -g commitizen create-{react,next}-app
 
 # setup go
 echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.zshrc
-go get golang.org/x/tools/cmd/goimports
+go get -v golang.org/x/tools/cmd/goimports
 
 
 # setup python
 echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc
 echo "export PIPENV_VENV_IN_PROJECT=true" >> ~/.zshrc
-eval $(pyenv init -)
+eval "$(pyenv init -)"
 pyenv install 3.9.1
 pyenv global 3.9.1
 pip3 install pipenv
