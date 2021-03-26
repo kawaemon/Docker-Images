@@ -4,8 +4,8 @@ alias cat=bat
 alias sl=ls
 alias v=nvim
 alias lg=lazygit
-
 alias cz="nvm exec default cz"
+alias repo='cd "$HOME/repo/$(ghq list | fzf)"'
 
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1

@@ -51,7 +51,7 @@ rm -rf yay
 
 
 # install AUR package
-yay -S --noconfirm lazy{git,docker} {neovim,duf}-git ngrok google-cloud-sdk
+yay -S --noconfirm lazy{git,docker} {neovim,duf}-git ngrok google-cloud-sdk ghq
 
 
 # setup Node.js
